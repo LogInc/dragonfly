@@ -167,6 +167,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARDroneBasics\ARDroneBasics.csproj">
+      <Project>{30fb7e9c-2668-4303-bf0d-1618dd30b8e5}</Project>
+      <Name>ARDroneBasics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARDroneControlLibrary\ARDroneControlLibrary.csproj">
+      <Project>{92277dfc-0d55-4998-8acf-b01f3a7fb508}</Project>
+      <Name>ARDroneControlLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

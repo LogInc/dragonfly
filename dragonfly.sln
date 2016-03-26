@@ -20,8 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dragonfly", "dragonfly\drag
 		{92277DFC-0D55-4998-8ACF-B01F3A7FB508} = {92277DFC-0D55-4998-8ACF-B01F3A7FB508}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARDrone_Testing", "ARDrone_Testing\ARDrone_Testing.csproj", "{EB016BB8-3E68-4DD7-B27E-317B18024FFA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -52,10 +50,6 @@ Global
 		{7B5FC5C1-78DE-4587-9119-5496E1D3EB4E}.Debug|x86.Build.0 = Debug|x86
 		{7B5FC5C1-78DE-4587-9119-5496E1D3EB4E}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B5FC5C1-78DE-4587-9119-5496E1D3EB4E}.Release|x86.Build.0 = Release|Any CPU
-		{EB016BB8-3E68-4DD7-B27E-317B18024FFA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{EB016BB8-3E68-4DD7-B27E-317B18024FFA}.Debug|x86.Build.0 = Debug|Any CPU
-		{EB016BB8-3E68-4DD7-B27E-317B18024FFA}.Release|x86.ActiveCfg = Release|Any CPU
-		{EB016BB8-3E68-4DD7-B27E-317B18024FFA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
