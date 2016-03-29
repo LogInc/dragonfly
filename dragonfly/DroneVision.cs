@@ -29,7 +29,6 @@ namespace Dragonfly
 
         public static void Initialize()
         {
-            FaceDetector.Initialize();
             capture = new Capture();
             timer_job = new DispatcherTimer();
             timer_job.Tick += new EventHandler(Job_Tick);
@@ -50,17 +49,23 @@ namespace Dragonfly
         {
             Mat frame = new Mat();
             capture.Retrieve(frame);
-            if (frame != null)
-            {
-                List<Rectangle> detectedFaces = new List<Rectangle>();
-                FaceDetector.DetectFace(frame, detectedFaces);
-                foreach (var face in detectedFaces)
-                {
-                    CvInvoke.Rectangle(frame, face, new MCvScalar(255, 0, 0));
-                }
 
-                CvInvoke.Imshow("original", frame);
+            Mat gray = new Mat();
+            CvInvoke.CvtColor(frame, gray, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
+            CvInvoke.EqualizeHist(gray, gray);
+
+            Mat temp = new Mat();
+            CvInvoke.GaussianBlur(gray, temp, new Size(3, 3), 1);
+            gray = temp;
+
+            List<Rectangle> detectedFaces = new List<Rectangle>();
+            FaceDetector.DetectFace(gray, detectedFaces);
+            foreach (var face in detectedFaces)
+            {
+                CvInvoke.Rectangle(gray, face, new MCvScalar(255, 0, 0));
             }
+
+            CvInvoke.Imshow("Gray", gray);
         }
     }
 }
