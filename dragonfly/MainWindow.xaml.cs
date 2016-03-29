@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace dragonfly
+using Emgu.CV;
+
+namespace Dragonfly
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,6 +25,13 @@ namespace dragonfly
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            DroneVision.Initialize();
+            DroneVision.Start();
         }
     }
 }
