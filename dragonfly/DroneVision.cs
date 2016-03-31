@@ -11,16 +11,10 @@ using Emgu.CV.Structure;
 namespace Dragonfly
 {
     /// <summary>
-    /// DroneVision handles all the Computer Vision stages including
+    /// DroneVision handles all the Computer Vision stages.
     /// 
-    /// Image Acquisition
-    /// 
-    /// Image Pre-Processing
-    /// 
-    /// Object Detection and Recognition
-    /// 
-    /// DroneVision detects and locates objects of interest, providing useful output
-    /// that can be used for maneuvering the drone.
+    /// It captures a live feed and detect objects of interest that affect the
+    /// drone's decision
     /// </summary>
     public static class DroneVision
     {
@@ -29,7 +23,13 @@ namespace Dragonfly
         /// </summary>
         public enum VideoSource
         {
+            /// <summary>
+            /// Video source is the live stream from the drone
+            /// </summary>
             Drone,
+            /// <summary>
+            /// Video source is a webcam connected to the computer
+            /// </summary>
             Webcam,
         }
 
@@ -38,6 +38,12 @@ namespace Dragonfly
         private static Mat captured_frame = new Mat();
         private static Mat composed_image = new Mat();
 
+        /// <summary>
+        /// Initializes the class with the given video source.
+        /// 
+        /// This needs to be called at least once.
+        /// </summary>
+        /// <param name="source">Source of video stream to use</param>
         public static void Initialize(VideoSource source=VideoSource.Webcam)
         {
             capture = new Capture();
@@ -68,30 +74,23 @@ namespace Dragonfly
 
         private static void Job_Tick(object sender, EventArgs e)
         {
-            Mat gray = new Mat();
             Mat temp = new Mat();
 
             capture.Retrieve(captured_frame);
             composed_image = captured_frame;
-            // Color to gray conversion
-            CvInvoke.CvtColor(captured_frame, gray, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
 
-            // Histogram equalization
-            CvInvoke.EqualizeHist(gray, gray);
-
-            // Noise removal
-            CvInvoke.GaussianBlur(gray, temp, new Size(3, 3), 1);
-            gray = temp;
+            temp = ImageProcessor.PreprocessImage(captured_frame);
 
             List<Rectangle> detectedFaces = new List<Rectangle>();
-            FaceDetector.DetectFace(gray, detectedFaces);
+            ImageProcessor.DetectFace(temp, detectedFaces);
             // Draw rectangles around each face
             foreach (var face in detectedFaces)
             {
+                CvInvoke.Rectangle(composed_image, face, new MCvScalar(255, 0, 0));
                 CvInvoke.Rectangle(temp, face, new MCvScalar(255, 0, 0));
             }
 
-            CvInvoke.Imshow("Faces", temp);
+           CvInvoke.Imshow("Faces", temp);
         }
     }
 }
